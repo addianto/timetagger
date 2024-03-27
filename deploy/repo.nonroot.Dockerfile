@@ -15,7 +15,9 @@ RUN groupadd -g 1000 timetagger && \
 USER 1000
 
 WORKDIR /opt/timetagger
-COPY . /opt/timetagger
+
+# TODO: Investigate why the original version (i.e., without --chmod) works on Windows but not on rootless Podman
+COPY --chmod=1000:1000 . /opt/timetagger
 
 # Install dependencies (including optional ones that make uvicorn faster)
 # Upgrade pip to the lastest version
